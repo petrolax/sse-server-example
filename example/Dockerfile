@@ -1,5 +1,9 @@
-FROM httpd:latest
+FROM golang:latest
 
-ENV SSE_SERVER_HOST="localhost:8080"
+WORKDIR server
 
-COPY ./public_html/ /usr/local/apache2/htdocs/
+COPY . .
+
+RUN go build -o server main.go
+
+CMD ["./server"]

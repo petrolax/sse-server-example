@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	sse "github.com/petrolax/sse-server-example"
+	"github.com/petrolax/sse-server-example"
 )
 
 func main() {
