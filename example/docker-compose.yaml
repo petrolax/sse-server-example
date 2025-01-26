@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  server:
+    image: golang:latest-alpine
+    build: .
+    ports:
+      - "8080:8080"
+  client:
+    build: ./client
+    environment:
+      SSE_SERVER_HOST: server:8080
+      CLIENT_PORT: 8082
+    ports: ["8082:8082"]
+    depends_on:
+      - server
+

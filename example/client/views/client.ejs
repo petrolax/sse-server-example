@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<header></header>
+<body>
+
+    <button onclick="startConnection()">Start</button>
+    <button onclick="closeConnection()">Close</button>
+    <ul>
+    </ul>
+
+
+
+    <script>
+        const eventList = document.querySelector('ul');
+        const serverHost = '<%= sseServerHost %>'
+
+        startConnection = () => {
+            let evtSource = new EventSource(serverHost+"/listen");
+            evtSource.onopen = () => {
+                const newElement = document.createElement("li");
+
+                newElement.textContent = "connection success";
+                eventList.appendChild(newElement);
+            }
+
+            evtSource.onmessage = (e) => {
+                const newElement = document.createElement("li");
+
+                newElement.textContent = "data: " + e.data;
+                eventList.appendChild(newElement);
+            }
+
+            evtSource.onerror = () => {
+                const newElement = document.createElement("li");
+
+                newElement.textContent = "Connection failed";
+                eventList.appendChild(newElement);
+            }; 
+
+            closeConnection = () => {
+                const newElement = document.createElement("li");
+
+                newElement.textContent = "Connection closed";
+                eventList.appendChild(newElement);
+                evtSource.close();
+            };
+        };
+
+       
+    </script>
+
+</body>
